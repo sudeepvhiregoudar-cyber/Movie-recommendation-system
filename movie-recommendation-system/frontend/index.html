@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Recommendation System</title>
+<script>document.documentElement.dataset.theme = localStorage.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="Home"><span class="logo">▶</span><span>Movie Recommendation System</span></a>
+    <form id="searchForm" class="search" role="search">
+      <input id="searchInput" type="search" placeholder="Search title, director, cast or keyword" aria-label="Search movies">
+      <button type="submit">Search</button>
+    </form>
+    <div class="actions">
+      <button id="themeBtn" class="ghost icon" aria-label="Toggle theme">◐</button>
+      <div id="auth"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="hero">
+    <h1>Find your next favourite movie</h1>
+    <p>Content-based, collaborative and hybrid recommendations. Rate a few movies and the picks adapt to your taste.</p>
+  </section>
+
+  <section id="sec-recs" class="block" hidden>
+    <div class="head"><div><h2>Recommended for you</h2><p id="recs-sub" class="sub"></p></div></div>
+    <div id="recs" class="grid"></div>
+  </section>
+  <section class="block home-only"><div class="head"><div><h2>Trending now</h2><p class="sub">Popular titles with recent rating activity</p></div></div><div id="trending" class="grid"></div></section>
+  <section class="block home-only"><div class="head"><div><h2>Top rated</h2><p class="sub">Weighted by rating and number of votes</p></div></div><div id="popular" class="grid"></div></section>
+
+  <section class="block" id="sec-browse">
+    <div class="head"><div><h2 id="browseTitle">Browse all movies</h2><p id="count" class="sub"></p></div></div>
+    <div id="chips" class="chips"></div>
+    <div id="grid" class="grid"></div>
+    <div class="center"><button id="more" class="primary" hidden>Load more</button></div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span>FastAPI · scikit-learn · SQLAlchemy</span>
+  <a href="/docs" target="_blank" rel="noopener">API documentation</a>
+</footer>
+
+<dialog id="movieModal"><button class="close" data-close aria-label="Close">✕</button><div id="movieBody"></div></dialog>
+
+<dialog id="authModal" class="small">
+  <button class="close" data-close aria-label="Close">✕</button>
+  <div class="tabs"><button data-mode="login" class="tab on">Log in</button><button data-mode="register" class="tab">Sign up</button></div>
+  <form id="authForm" autocomplete="on">
+    <label>Username<input name="username" required minlength="3" autocomplete="username"></label>
+    <label id="emailRow" hidden>Email<input name="email" type="email" autocomplete="email"></label>
+    <label>Password<input name="password" type="password" required minlength="6" autocomplete="current-password"></label>
+    <p id="authErr" class="err" role="alert"></p>
+    <button class="primary wide" id="authSubmit" type="submit">Log in</button>
+  </form>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
